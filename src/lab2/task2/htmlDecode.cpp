@@ -17,7 +17,8 @@ string htmlDecode(string htmlString)
 	};
 
 	size_t occurrence;
-	for (int i = 0; i < (sizeof(interchangeablePairs) / sizeof(interchangeablePairs[0])); i++) {
+	for (int i = 0; i < (sizeof(interchangeablePairs) / sizeof(interchangeablePairs[0])); i++) 
+	{
 		do {			
 			occurrence = htmlString.find(interchangeablePairs[i][1]);
 			if (occurrence != string::npos)
