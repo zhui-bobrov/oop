@@ -7,71 +7,66 @@
 
 using namespace std;
 
-vector<double> receiveVector()
+vector<double> ReceiveVector()
 {
-	double input;
+	//TODO: ограничить зону видимости
 	vector<double> numVector;
-
 	cout << "Enter doubles: " << endl;
-/*	do {
-		std::cin >> input;
-		numVector.push_back(input);
-	} while (input);
-*/
 	
-	while (cin >> input)
-	{
-		numVector.push_back(input);
-	};
-
+	while (!cin.eof()) {
+		double number;
+		if (cin >> number) {
+			numVector.push_back(number);
+		}
+		else {
+			break;
+		}
+	}
 	return numVector;
 }
 
-void returnVector(vector<double>& numVector)
-{
+void PrintVector(vector<double>& numVector) { //TODO: именовать с заглавной и переименовать на print
 	cout << "Processed Vector: " << endl;
 	sort(numVector.begin(), numVector.end());
 	for (int i = 0; i < numVector.size(); i++)
 		cout << numVector[i] << " ";
+		cout << numVector[i] << " ";
 	cout << endl;
 }
 
-double calculateMultiplier(vector<double>& numVector)
-{
+double CalculateMultiplier(vector<double>& numVector) {
+	const int multiplier = 2;
 	double evenSum = 0;
 	int evenCount = 0;
-	for (int i = 0; i < numVector.size(); i++)
-		if (fmod(numVector[i], 2) == 0)
+	for (int i = 0; i < numVector.size(); i++) {
+		if (fmod(numVector[i], multiplier) == 0) //TODO: вынести в константу
 		{
 			evenSum += numVector[i];
 			evenCount++;
 		}
+	}
 
 	return evenSum / evenCount;
 }
 
-vector<double>  processVector(vector<double>& numVector)
-{
-	double multiplier = calculateMultiplier(numVector);
+vector<double> ProcessVector(vector<double>& numVector) {
+	double multiplier = CalculateMultiplier(numVector);
 
-	for (int i = 0; i < numVector.size(); i++)
-		if (fmod(numVector[i], 3) == 0)
-		{
+	for (int i = 0; i < numVector.size(); i++) {
+		if (fmod(numVector[i], 3) == 0) {
 			numVector[i] = numVector[i] * multiplier;
 		}
-
+	}
 	return numVector;
 }
 
 
-int main()
-{
+int main() {
 	vector<double> numVector;
-	double num;
 
-	numVector = receiveVector();
-	numVector = processVector(numVector);
-	returnVector(numVector);
+	numVector = ReceiveVector();
+	numVector = ProcessVector(numVector);
+	PrintVector(numVector);
 
 	system("pause");
 	return 0;

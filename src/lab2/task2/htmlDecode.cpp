@@ -1,41 +1,45 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-string htmlDecode(string htmlString)
+string HtmlDecode(string htmlString)
 {
-	const string interchangeablePairs[5][2] = {
-		{"\"", "&quot;"},
-		{"'", "&apos;"},
-		{"<", "&lt;"},
-		{">", "&gt;"},
-		{"&", "&amp;"}
+	const string specialPairs[][2] = {
+		{ "\"", "&quot;" },
+		{ "'", "&apos;" },
+		{ "<", "&lt;" },
+		{ ">", "&gt;" },
+		{ "&", "&amp;" }
 	};
 
-	size_t occurrence;
-	for (int i = 0; i < (sizeof(interchangeablePairs) / sizeof(interchangeablePairs[0])); i++) 
+	int specialPairsCount = sizeof(specialPairs) / sizeof(specialPairs[0]);
+	for (int i = 0; i < specialPairsCount; i++)
 	{
-		do {			
-			occurrence = htmlString.find(interchangeablePairs[i][1]);
+		size_t occurrence;
+		do
+		{
+			occurrence = htmlString.find(specialPairs[i][1]);
 			if (occurrence != string::npos)
-				htmlString.replace(occurrence, interchangeablePairs[i][1].length(), interchangeablePairs[i][0]);
+				htmlString.replace(occurrence, specialPairs[i][1].length(), specialPairs[i][0]);
 		} while (occurrence != string::npos);
 	}
 
 	return htmlString;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-	string htmlString;
-	getline(cin, htmlString);
-	
-	cout << htmlDecode(htmlString) << endl;
-	system("pause");
+	if (argc < 2)
+	{
+		cerr << "Error, no text here!" << endl;
+		return EXIT_FAILURE;
+	}
+	string htmlString = argv[1];
+	cout << HtmlDecode(htmlString) << endl;
 
-	return 0;
+	return EXIT_SUCCESS;
 }

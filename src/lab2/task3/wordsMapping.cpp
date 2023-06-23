@@ -6,9 +6,7 @@
 #include <cctype>
 
 using namespace std;
-
-int main() {
-//	setlocale(LC_ALL, "");
+map<string, int> ProcessMap() {
 	string input;
 	map<string, int> wordsMap;
 	map<string, int>::iterator it;
@@ -16,19 +14,25 @@ int main() {
 	{
 		transform(input.begin(), input.end(), input.begin(), ::tolower);
 		it = wordsMap.find(input);
-		if (it != wordsMap.end())
-		{
+		if (it != wordsMap.end()) {
 			wordsMap[input] += 1;
 		}
-		else
-		{
+		else {
 			wordsMap.insert(make_pair(input, 1));
 		}
-	};
+	}
+	return wordsMap;
+}
 
+void PrintMap(map<string, int>& wordsMap) {
+	map<string, int>::iterator it;
 	for (it = wordsMap.begin(); it != wordsMap.end(); ++it)
-		cout << it->first << " -> " << it->second << endl;
-	system("pause");
+		cout << it -> first << " -> " << it -> second << endl;
+}
 
-	return 0;
+int main() {
+	PrintMap(ProcessMap());
+
+	system("pause");
+	return EXIT_SUCCESS;
 }

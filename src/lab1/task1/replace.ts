@@ -1,8 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
 
-//-----------------------------------------//
-
 function replaceString(strLine, searchStr, replaceStr: string) {
     let resultStr: string = '';
     for (let i: number = 0; i < strLine.length;) {
@@ -31,15 +29,20 @@ function copyStreamWithReplacement(inputFile: string, outputFile: string, search
     return 0;
 }
 
-const argv = process.argv;
-if (argv.length < 6) {
-    throw "Invalid argument count\n" +
-    "Usage: replace.exe <inputFile> <outputFile> <searchString> <replacementString>\n";
+// @ts-ignore
+function main() {
+    const argv = process.argv;
+    if (argv.length < 6) {
+        throw "Invalid argument count\n" +
+        "Usage: replace.exe <inputFile> <outputFile> <searchString> <replacementString>\n";
+    }
+
+    let inputFile: string = argv[2];
+    let outputFile: string = argv[3];
+    let searchStr: string = argv[4];
+    let replaceStr: string = argv[5];
+
+    copyStreamWithReplacement(inputFile, outputFile, searchStr, replaceStr);
 }
 
-let inputFile: string = argv[2];
-let outputFile: string = argv[3];
-let searchStr: string = argv[4];
-let replaceStr: string = argv[5];
-
-copyStreamWithReplacement(inputFile, outputFile, searchStr, replaceStr);
+main();
