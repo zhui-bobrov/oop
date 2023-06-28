@@ -54,34 +54,55 @@ TEST_CASE("CParallelepiped Test")
 
 TEST_CASE("CCompound Test")
 {
+	std::shared_ptr<CCompound> compound = std::make_shared<CCompound>();
 	std::shared_ptr<CBody> sphere = std::make_shared<CSphere>(2000, 0.5);
 	std::shared_ptr<CBody> cone = std::make_shared<CCone>(1500, 2, 4);
 	std::shared_ptr<CBody> cylinder = std::make_shared<CCylinder>(900, 2, 10);
 	std::shared_ptr<CBody> parallelepiped = std::make_shared<CParallelepiped>(5000, 0.2, 0.1, 0.3);
 
-	CCompound compound;
-	compound.AddBody(sphere);
-	compound.AddBody(cone);
-	compound.AddBody(cylinder);
-	compound.AddBody(parallelepiped);
+	compound->AddBody(sphere);
+	compound->AddBody(cone);
+	compound->AddBody(cylinder);
+	compound->AddBody(parallelepiped);
 
-	CHECK(compound.GetShapeType() == "Compound");
-	CHECK(compound.GetDensity() == Approx(974.5).margin(0.1));
-	CHECK(compound.GetVolume() == (sphere->GetVolume() + cone->GetVolume() + cylinder->GetVolume() + parallelepiped->GetVolume()));
-	CHECK(compound.GetMass() == (sphere->GetMass() + cone->GetMass() + cylinder->GetMass() + parallelepiped->GetMass())); 
-	CHECK(compound.GetWeightInWater() == (sphere->GetWeightInWater() + cone->GetWeightInWater() + cylinder->GetWeightInWater() + parallelepiped->GetWeightInWater()));
+	CHECK(compound->GetShapeType() == "Compound");
+	CHECK(compound->GetDensity() == Approx(974.5).margin(0.1));
+	CHECK(compound->GetVolume() == Approx(sphere->GetVolume() + cone->GetVolume() + cylinder->GetVolume() + parallelepiped->GetVolume()).margin(0.000001));
+	CHECK(compound->GetMass() == Approx(sphere->GetMass() + cone->GetMass() + cylinder->GetMass() + parallelepiped->GetMass()).margin(0.000001)); 
+	CHECK(compound->GetWeightInWater() == Approx(sphere->GetWeightInWater() + cone->GetWeightInWater() + cylinder->GetWeightInWater() + parallelepiped->GetWeightInWater()).margin(0.000001));
+}
+
+TEST_CASE("CCompound Nesting Test")
+{
+	std::shared_ptr<CCompound> compound1 = std::make_shared<CCompound>();
+	std::shared_ptr<CCompound> compound2 = std::make_shared<CCompound>();
+	std::shared_ptr<CBody> sphere = std::make_shared<CSphere>(2000, 0.5);
+	std::shared_ptr<CBody> cone = std::make_shared<CCone>(1500, 2, 4);
+	std::shared_ptr<CBody> cylinder = std::make_shared<CCylinder>(900, 2, 10);
+	std::shared_ptr<CBody> parallelepiped = std::make_shared<CParallelepiped>(5000, 0.2, 0.1, 0.3);
+
+	compound2->AddBody(sphere);
+	compound2->AddBody(cone);
+	compound1->AddBody(cylinder);
+	compound1->AddBody(parallelepiped);
+	compound1->AddBody(compound2);
+
+	CHECK(compound1->GetShapeType() == "Compound");
+	CHECK(compound1->GetDensity() == Approx(974.5).margin(0.1));
+	CHECK(compound1->GetVolume() == Approx(sphere->GetVolume() + cone->GetVolume() + cylinder->GetVolume() + parallelepiped->GetVolume()).margin(0.000001));
+	CHECK(compound1->GetMass() == Approx(sphere->GetMass() + cone->GetMass() + cylinder->GetMass() + parallelepiped->GetMass()).margin(0.000001));
+	CHECK(compound1->GetWeightInWater() == Approx(sphere->GetWeightInWater() + cone->GetWeightInWater() + cylinder->GetWeightInWater() + parallelepiped->GetWeightInWater()).margin(0.000001));
 }
 
 TEST_CASE("Empty CCompound Test")
 {
+	std::shared_ptr<CCompound> compound = std::make_shared<CCompound>();
 
-	CCompound compound;
-
-	CHECK(compound.GetShapeType() == "Compound");
-	CHECK(compound.GetDensity() == 0);
-	CHECK(compound.GetVolume() == 0);
-	CHECK(compound.GetMass() == 0); 
-	CHECK(compound.GetWeightInWater() == 0);
+	CHECK(compound->GetShapeType() == "Compound");
+	CHECK(compound->GetDensity() == 0);
+	CHECK(compound->GetVolume() == 0);
+	CHECK(compound->GetMass() == 0); 
+	CHECK(compound->GetWeightInWater() == 0);
 }
 
 TEST_CASE("Invalid args")

@@ -1,6 +1,3 @@
-#include "pch.h"
-#pragma hdrstop 
-
 #include "stdafx.h"
 #include "CSolidBody.h"
 
@@ -24,7 +21,9 @@ double CSolidBody::GetMass() const
 	return GetVolume() * GetDensity();
 }
 
+/*
 double CSolidBody::GetWeightInWater() const
 {
 	return (GetDensity() - WATER_DENSITY) * G * GetVolume();
 }
+*/

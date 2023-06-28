@@ -1,6 +1,3 @@
-#include "pch.h"
-#pragma hdrstop
-
 #include "stdafx.h"
 #include "CCylinder.h"
 

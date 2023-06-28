@@ -10,9 +10,9 @@ public:
 	double GetHeight() const;
 	double GetVolume() const override;
 
-	std::string GetAdditionalParameters() const override;
 
 private:
 	double m_radius;
 	double m_height;
+	std::string GetAdditionalParameters() const override;
 };

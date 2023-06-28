@@ -1,6 +1,4 @@
-#include "pch.h"
-#pragma hdrstop
-
+#include "stdafx.h"
 #include "CCompound.h"
 
 CCompound::CCompound()
@@ -45,7 +43,7 @@ double CCompound::GetMass() const
 	}
 	return totalMass;
 }
-
+/*
 double CCompound::GetWeightInWater() const
 {
 	double totalWeightInWater = 0.0;
@@ -55,7 +53,7 @@ double CCompound::GetWeightInWater() const
 	}
 	return totalWeightInWater;
 }
-
+*/
 std::string CCompound::GetAdditionalParameters() const
 {
 	std::ostringstream resultStr;

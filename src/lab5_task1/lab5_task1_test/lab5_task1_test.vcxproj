@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5e13dbc0-7749-451f-b770-86fab9a1af4f}</ProjectGuid>
-    <RootNamespace>lab4task1</RootNamespace>
+    <ProjectGuid>{2bc1dbf4-6ae9-455e-9393-3cfee5185ab4}</ProjectGuid>
+    <RootNamespace>lab5task1test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,28 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BodyApp.cpp" />
-    <ClCompile Include="BodyConstructor.cpp" />
-    <ClCompile Include="CBody.cpp" />
-    <ClCompile Include="CCompound.cpp" />
-    <ClCompile Include="CCone.cpp" />
-    <ClCompile Include="CCylinder.cpp" />
-    <ClCompile Include="CParallelepiped.cpp" />
-    <ClCompile Include="CSolidBody.cpp" />
-    <ClCompile Include="CSphere.cpp" />
-    <ClCompile Include="ShapeBox.cpp" />
+    <ClCompile Include="..\lab5_task1\CDate.cpp" />
+    <ClCompile Include="lab5_task1_test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BodyConstructor.h" />
-    <ClInclude Include="CBody.h" />
-    <ClInclude Include="CCompound.h" />
-    <ClInclude Include="CCone.h" />
-    <ClInclude Include="CCylinder.h" />
-    <ClInclude Include="CSphere.h" />
-    <ClInclude Include="CParallelepiped.h" />
-    <ClInclude Include="ShapeBox.h" />
-    <ClInclude Include="CSolidBody.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="..\lab5_task1\CDate.h" />
+    <ClInclude Include="..\lab5_task1\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

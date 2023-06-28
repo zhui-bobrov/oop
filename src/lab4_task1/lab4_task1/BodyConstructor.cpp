@@ -1,6 +1,4 @@
-#include "pch.h"
-#pragma hdrstop
-
+#include "stdafx.h"
 #include "BodyConstructor.h"
 
 BodyConstructor::BodyConstructor()

@@ -1,9 +1,6 @@
-﻿#include "pch.h"
-#pragma hdrstop
-
+﻿#include "stdafx.h" //подключить в .cpp (+)
 #include "CBody.h"
-#include "stdafx.h" //подключить в .cpp 
-//Прочитать про прекомпилированные заголовки.
+//Прочитать про прекомпилированные заголовки (прочитал, но не особо понял).
 
 CBody::CBody(const std::string& shapeType)
 	: m_shapeType(shapeType)
@@ -23,24 +20,13 @@ std::string CBody::GetShapeType() const
 	return m_shapeType;
 }
 
-double CBody::GetDensity() const
+void CBody::AddBody(std::shared_ptr<CBody> body)
 {
-	return 0.0;
-}
-
-double CBody::GetMass() const
-{
-	return 0.0;
-}
-
-double CBody::GetVolume() const
-{
-	return 0.0;
 }
 
 double CBody::GetWeightInWater() const
 {
-	return 0.0;
+	return (GetDensity() - WATER_DENSITY) * G * GetVolume();
 }
 
 std::string CBody::ToString() const
@@ -59,8 +45,4 @@ std::string CBody::ToString() const
 std::string CBody::GetAdditionalParameters() const
 {
 	return "";
-}
-
-void CBody::AddBody(std::shared_ptr<CBody> body)
-{
 }

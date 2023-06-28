@@ -1,6 +1,4 @@
-#include "pch.h"
-#pragma hdrstop
-
+#include "stdafx.h"
 #include "ShapeBox.h"
 
 ShapeBox::ShapeBox(BodyConstructor& bodyConstructor)
@@ -194,5 +192,6 @@ void ShapeBox::PrintUsageInfo() const
 			  << "  Info - to print all bodies" << std::endl
 			  << "  Heaviest - to print heaviest body" << std::endl
 			  << "  Lightest - to print lightest body in water" << std::endl
-			  << "  Help - to print usage info" << std::endl;
+			  << "  Help - to print usage info" << std::endl
+			  << "-----------------------------" << std::endl;
 }

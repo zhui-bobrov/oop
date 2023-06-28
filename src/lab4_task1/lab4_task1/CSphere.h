@@ -9,8 +9,8 @@ public:
 	double GetVolume() const override;
 	double GetRadius() const;
 
-	virtual std::string GetAdditionalParameters() const;
 
 private:
 	double m_radius;
+	virtual std::string GetAdditionalParameters() const;
 };
