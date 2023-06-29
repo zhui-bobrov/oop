@@ -1,4 +1,3 @@
-
 enum class Month
 {
 	JANUARY = 1,
@@ -26,6 +25,23 @@ enum class WeekDay
 	SATURDAY
 };
 
+const std::map<Month, unsigned> daysInMonthMap = {
+	{ Month::JANUARY, 31 },
+	{ Month::FEBRUARY, 28 },
+	{ Month::MARCH, 31 },
+	{ Month::APRIL, 30 },
+	{ Month::MAY, 31 },
+	{ Month::JUNE, 30 },
+	{ Month::JULY, 31 },
+	{ Month::AUGUST, 31 },
+	{ Month::SEPTEMBER, 30 },
+	{ Month::OCTOBER, 31 },
+	{ Month::NOVEMBER, 30 },
+	{ Month::DECEMBER, 31 }
+};
+
+enum class StartDate { DAY = 1,	MONTH = 1, YEAR = 1970 };
+
 enum class DateType
 {
 	DAY,
@@ -33,7 +49,6 @@ enum class DateType
 	YEAR
 };
 
-const unsigned daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 const std::vector<char> validDelimiters = { '.', '/', '-' };
 
 class CDate
@@ -74,5 +89,5 @@ private:
 	bool IsLeapYear(unsigned year) const;
 	unsigned GetDaysSinceEpoch(unsigned day, Month month, unsigned year) const;
 	unsigned GetDaysInMonth(Month month, unsigned year) const;
-	unsigned GetDate(DateType dateType) const;
+	std::tuple<unsigned, unsigned, unsigned> GetOperatingDate() const;
 };

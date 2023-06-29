@@ -11,24 +11,24 @@ CDate::CDate(unsigned dayCount)
 {
 }
 
-unsigned CDate::GetDay() const
-{
-	return GetDate(DateType::DAY);
-}
-
 WeekDay CDate::GetWeekDay() const
 {
 	return static_cast<WeekDay>((m_days + 4) % 7);
 }
 
+unsigned CDate::GetDay() const
+{
+	return std::get<0>(GetOperatingDate());
+}
+
 Month CDate::GetMonth() const
 {
-	return static_cast<Month>(GetDate(DateType::MONTH));
+	return static_cast<Month>(std::get<1>(GetOperatingDate()));
 }
 
 unsigned CDate::GetYear() const
 {
-	return GetDate(DateType::YEAR);
+	return std::get<2>(GetOperatingDate());
 }
 
 bool CDate::IsValid() const
@@ -40,7 +40,7 @@ unsigned CDate::GetDaysSinceEpoch(unsigned day, Month month, unsigned year) cons
 {
 	unsigned daysCount = 0;
 
-	for (unsigned i = 1970; i < year; ++i)
+	for (unsigned i = static_cast<unsigned>(StartDate::YEAR); i < year; ++i)
 	{
 		daysCount += IsLeapYear(i) ? 366 : 365;
 	}
@@ -55,11 +55,11 @@ unsigned CDate::GetDaysSinceEpoch(unsigned day, Month month, unsigned year) cons
 	return daysCount;
 }
 
-unsigned CDate::GetDate(DateType dateType) const
+std::tuple < unsigned, unsigned, unsigned> CDate::GetOperatingDate() const
 {
-	unsigned year = 1970;
-	unsigned month = 1;
-	unsigned day = 1 + m_days;
+	unsigned year = static_cast<unsigned>(StartDate::YEAR);
+	unsigned month = static_cast<unsigned>(StartDate::MONTH);
+	unsigned day = static_cast<unsigned>(StartDate::DAY) + m_days;
 
 	while (day > GetDaysInMonth(static_cast<Month>(month), year))
 	{
@@ -72,15 +72,7 @@ unsigned CDate::GetDate(DateType dateType) const
 		}
 	}
 
-	switch (dateType)
-	{
-	case DateType::DAY:
-		return day;
-	case DateType::MONTH:
-		return month;
-	case DateType::YEAR:
-		return year;
-	}
+	return std::make_tuple(day, month, year);
 }
 
 bool CDate::IsLeapYear(unsigned year) const
@@ -90,9 +82,7 @@ bool CDate::IsLeapYear(unsigned year) const
 
 unsigned CDate::GetDaysInMonth(Month month, unsigned year) const
 {
-	unsigned monthNum = static_cast<unsigned>(month);
-
-	return (monthNum == static_cast<unsigned>(Month::FEBRUARY) && IsLeapYear(year)) ? daysInMonth[monthNum] + 1 : daysInMonth[monthNum];
+	return (month == Month::FEBRUARY && IsLeapYear(year)) ? daysInMonthMap.at(month) + 1 : daysInMonthMap.at(month);
 }
 
 CDate& CDate::operator++()
@@ -180,7 +170,8 @@ bool CDate::operator>=(const CDate& date2) const
 
 std::ostream& operator<<(std::ostream& stream, const CDate& date)
 {
-	stream << date.GetDay() << '.' << static_cast<int>(date.GetMonth()) << '.' << date.GetYear();
+	auto operatingDate = date.GetOperatingDate();
+	stream << std::get<0>(operatingDate) << '.' << std::get<1>(operatingDate) << '.' << std::get<2>(operatingDate);
 	return stream;
 }
 
